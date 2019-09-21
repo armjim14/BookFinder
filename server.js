@@ -1,24 +1,39 @@
 const express = require("express");
+const mongoose = require("mongoose")
 
-const mongoose = require("mongoose");
-const routes = require("./routes");
 const app = express();
-const PORT = process.env.PORT || 3001;
+var db = require("./models");
 
-// Define middleware here
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/books";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
-// Add routes, both API and view
-app.use(routes);
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
+app.get("/saved/books", (req, res) => {
+    db.books.find({}, (err, data) => {
+        if(err) { return console.log(err)}
+        res.json(data)
+    })
+})
 
-// Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});
+app.post("/save/book", (req, res) => {
+    const {bookId, title, author, description, link, image, price} = req.body;
+    db.books.create({bookId, title, author, description, link, image, price}, (err, data) => {
+        if(err) { return console.log(err)}
+        res.json(data)
+    })
+})
+
+app.delete("/delete/:id", (req, res) => {
+    console.log(req.params.id)
+    db.books.findByIdAndRemove(req.params.id, (err, data) => {
+        res.json(data)
+    })
+})
+
+var PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+    console.log("Listening...")
+})
