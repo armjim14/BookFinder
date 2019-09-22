@@ -21,7 +21,7 @@ class Search extends Component {
                         title: ar[i].volumeInfo.title || "No Title Available",
                         author: (ar[i].volumeInfo.authors) ? ar[i].volumeInfo.authors[0] : "No Authors Available",
                         description: ar[i].volumeInfo.description || "No Description",
-                        image: ar[i].volumeInfo.imageLinks.thumbnail || "No Image",
+                        image: (ar[i].volumeInfo.imageLinks) ? ar[i].volumeInfo.imageLinks.thumbnail : "No Image",
                         link: ar[i].volumeInfo.infoLink || "#",
                         price: (ar[i].saleInfo.saleability === "FOR_SALE") ? ar[i].saleInfo.retailPrice.amount : "No Price Available"
                     }

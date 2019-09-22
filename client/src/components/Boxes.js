@@ -14,7 +14,7 @@ class Boxes extends Component {
                     </div>
                     <div className="col-md-6">
                         <h2>{title} By <u>{author}</u></h2>
-                        <p><b>{ (isNaN(price)) ? price : `$${price}` }</b></p>
+                        { (isNaN(price)) ? console.log(bookId + " has no price") : <p><b>${price}</b></p>}
                         <p>{description}</p>
                     </div>
                     <div className="col-md-2 offset-1">
