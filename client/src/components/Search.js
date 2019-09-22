@@ -28,6 +28,7 @@ class Search extends Component {
 
                     bookList.push(temp)
                 }
+                console.log(this.props);
                 this.props.renderImages(bookList)
             })
     }
