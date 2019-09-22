@@ -7,7 +7,7 @@
 
 ## Home page look like this
 
-![home screen](homeScreen.png)
+![home screen](homeInfo.PNG)
 
 ## Saved book page lmage
 
